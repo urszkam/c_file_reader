@@ -9,5 +9,7 @@ Ensure that the function works seamlessly for both file reading and standard inp
 
 char	*get_next_line(int fd)
 {
-
+    if (fd == -1)
+        return (0);
+    close(fd);
 }
