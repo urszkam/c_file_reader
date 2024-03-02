@@ -7,6 +7,7 @@
 int		ft_strlen(char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strndup(char *str, int n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 
 #endif
