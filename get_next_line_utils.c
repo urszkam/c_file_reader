@@ -22,6 +22,33 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+	size_t	d_len;
+	size_t	i;
+	char	*dest;
+
+	s_len = ft_strlen(s);
+	if (start > s_len)
+		d_len = 0;
+	else if (s_len - start > len)
+		d_len = len;
+	else
+		d_len = s_len - start;
+	dest = (char *) malloc((d_len + 1) * sizeof(char));
+	if (!dest)
+		return (0);
+	i = 0;
+	while (i < d_len)
+	{
+		dest[i] = s[start + i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int			i;
