@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukaminsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 17:25:45 by ukaminsk          #+#    #+#             */
-/*   Updated: 2024/02/26 17:34:29 by ukaminsk         ###   ########.fr       */
+/*   Created: 2024/03/04 20:08:26 by ukaminsk          #+#    #+#             */
+/*   Updated: 2024/03/04 20:08:32 by ukaminsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ int	ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s && *s != c)
+		s++;
+	if (c == '\0' || *s == c)
+		return ((char *)s);
+	return (0);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
