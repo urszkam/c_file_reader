@@ -48,31 +48,36 @@ static char	*find_line(char **remainder)
   return (line);
 }
 
-static char	*get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	int			bytes;
-	char	*str;
-	char	*line;
-	static char	*remainder;
+  int			bytes;
+  char	*str;
+  char	*line;
+  char *temp;
+  static char	*remainder;
 
-	remainder = "";
-	if (fd == -1 || BUFF_SIZE <= 0)
-		return (0);
-	str = (char *) malloc((BUFF_SIZE + 1) * sizeof(char));
-	if (!str)
-		return (0);
-	//Getting x number of chas
-	while (!ft_strchr(str, '\n'))
-	{
-		bytes = read(fd, str, BUFF_SIZE);
-		if (bytes == -1)
-			return (0);
-		str[bytes] = 0;
-		remainder = 
-	//Checking if there is
-	}
-	line = ft_strjoin(remainder, ft_substr(str, 0, ft_strchr(str, \n) - str));
-	return (line);
+  if (!remainder)
+    remainder = ft_strdup("");
+  if (fd <= -1  || BUFFER_SIZE <= 0)
+    return (0);
+  str = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
+  if (!str)
+    return (0);
+  str = "";
+  while (!ft_strchr(str, '\n'))
+  {
+    bytes = read(fd, str, BUFFER_SIZE);
+    if (bytes == -1)
+      return (0);
+    if (bytes == 0)
+      break;
+    str[bytes] = 0;
+    temp = remainder;
+    remainder = ft_strjoin(temp, str);
+  }
+  free(temp);
+  line = find_line(&remainder);
+  return (line);
 }
 
 int	main(void) 
