@@ -1,0 +1,6 @@
+Why did the 42 campus student become a gardener?
+
+Because they heard it's a great way to understand recursion – 
+planting a seed, 
+waiting for it to grow, 
+and then planting the seeds of the next generation!
