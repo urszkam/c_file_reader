@@ -66,7 +66,13 @@ static char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void) {
-
+int	main(void) 
+{
+	int fd = open("a.txt", O_RDONLY);
+	putstr(get_next_line(fd));
+	putstr(get_next_line(fd));
+	putstr(get_next_line(fd));
+    	putstr(get_next_line(fd));
+    	putstr(get_next_line(fd));
 	return (0);
 }
