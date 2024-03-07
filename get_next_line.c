@@ -26,17 +26,26 @@ static void	putstr(char *str)
 	write(1, str, strlen(str));
 }
 
-static char	find_line(char *str, static char *remainder)
+static char	*find_line(char **remainder)
 {
-	int			position;
-	char	*sub;
-	char	*line;
-	
-	position = ft_strchr(str, '\n') - str;
-	sub = ft_substr(str, 0, position);
-	line = ft_strjoin(remainder, sub);
-	free(sub);
-	return (line);
+  int			position;
+  char  *temp;
+  char	*line;
+
+  if (!ft_strchr(*remainder, '\n'))
+    {
+        line = *remainder;
+        *remainder = ft_strdup("");
+    }
+  else
+  {
+    position = ft_strchr(*remainder, '\n') - *remainder;
+    line = ft_substr(*remainder, 0, position + 1);
+    temp = *remainder;
+    *remainder = ft_substr(temp, position + 1, ft_strlen(temp) - (position + 1));
+    free(temp);
+  }
+  return (line);
 }
 
 static char	*get_next_line(int fd)
