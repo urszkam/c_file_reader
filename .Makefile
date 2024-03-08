@@ -22,7 +22,7 @@ make tests_empty
 
 make tests_stdin1
   @cc $(FLAGS) BUFFER_SIZE=$(BUFF3) -o tests.out .test/.tests_stdin.c ../get_next_line.c ../get_next_line_utils.c -I ../
-  @valgrind --leak-check=full --show-leak-kinds=all ./tests.out < joke2.txt| sed 's/$/\$/'
+  @valgrind --leak-check=full --show-leak-kinds=all ./tests.out < poem.txt | sed 's/$/\$/'
   @rm tests.out
 
 make tests_stdin2
