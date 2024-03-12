@@ -70,14 +70,16 @@ static int	read_loop(int fd, char **remainder)
 char	*get_next_line(int fd)
 {
 	int			bytes;
-	char		*str;
 	char		*line;
 	static char	*remainder;
 
 	if (!remainder)
 		remainder = ft_strdup("");
 	if (fd <= -1 || BUFFER_SIZE <= 0)
+	{
+		free(remainder);
 		return (0);
+	}
 	bytes = read_loop(fd, &remainder);
 	if ((!bytes && !*remainder) || !remainder)
 	{
