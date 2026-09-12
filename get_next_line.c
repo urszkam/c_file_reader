@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukaminsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: urkamins <urkamins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:07:16 by ukaminsk          #+#    #+#             */
-/*   Updated: 2024/03/04 20:07:20 by ukaminsk         ###   ########.fr       */
+/*   Updated: 2026/09/12 20:38:29 by urkamins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ for both file reading and standard input.
 
 static char	*find_line(char **remainder)
 {
-	int		position;
+	int		pos;
 	char	*temp;
 	char	*line;
 
