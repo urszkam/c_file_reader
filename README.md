@@ -1,40 +1,68 @@
-# Project Description
+# get_next_line tester
 
-This project entails the implementation of the get_next_line function, which reads a line from a file descriptor. The function is designed to be versatile, allowing users to read a text file or input from the standard input one line at a time through repeated calls.
+This directory contains a small test harness for a `get_next_line`
+implementation. The implementation itself is expected to be in the parent
+directory:
 
-# Prerequisites
+- `../get_next_line.c`
+- `../get_next_line_utils.c`
+- `../get_next_line.h`
 
-Before using the get_next_line function, make sure you have the necessary prerequisites in place:
-- C compiler (e.g., GCC)
-- Standard C library
+Run the commands below from this directory (`c_file_reader`). The tests use
+relative paths to files in `text_files/`.
 
-# Library
+## Requirements
 
-This project relies on the following standard C libraries:
+- C compiler available as `cc`
+- `valgrind`
+- a `get_next_line` implementation in the parent directory
 
-- unistd.h: For the read function
-- stdlib.h: For memory allocation and deallocation using malloc and free
+## Running the tests
 
-# Usage Example
+Run the complete test suite:
 
-Here's a simple example of how to use the get_next_line function:
+```sh
+make tests
+```
 
-```c
-#include "get_next_line.h"
-#include <fcntl.h>
+Run one test target at a time:
 
-int main(void) {
-    int fd = open("example.txt", O_RDONLY);
-    char *line;
+```sh
+make tests_42
+make tests_empty_file
+make tests_stdin1
+make tests_buffer0
+```
 
-    while ((line = get_next_line(fd)) != NULL) {
-        // Process the line as needed
-        // ...
-        free(line);
-    }
+Each target compiles the implementation with a different compile-time
+`BUFFER_SIZE`, runs the resulting program under Valgrind, and removes the
+temporary `tests.out` executable.
 
-    close(fd);
-    return 0;
-}
+## Tested cases
+
+- `tests_42`: boundary lines around `BUFFER_SIZE=5`, a final line without a
+  newline, and `NULL` after EOF
+- `tests_empty_file`: reading an empty file with `BUFFER_SIZE=1`
+- `tests_stdin1`: a 2100-character line followed by an empty line and EOF,
+  with `BUFFER_SIZE=1025` (the test reads `text_files/stdin_long.txt`)
+- `tests_buffer0`: a file containing only a newline and subsequent EOF calls,
+  with `BUFFER_SIZE=0`
+
+## Directory structure
+
+```text
+.
+├── Makefile
+├── README.md
+├── tests/
+│   ├── 42.c
+│   ├── empty_file.c
+│   ├── endlonly.c
+│   └── stdin.c
+└── text_files/
+    ├── 42.txt
+    ├── empty.txt
+    ├── endlonly.txt
+    └── stdin_long.txt
 ```
 
