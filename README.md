@@ -31,6 +31,7 @@ Run one test target at a time:
 make tests_42
 make tests_empty_file
 make tests_stdin1
+make tests_stdin2
 make tests_buffer0
 ```
 
@@ -45,6 +46,8 @@ temporary `tests.out` executable.
 - `tests_empty_file`: reading an empty file with `BUFFER_SIZE=1`
 - `tests_stdin1`: a 2100-character line followed by an empty line and EOF,
   with `BUFFER_SIZE=1025` (the test reads `text_files/stdin_long.txt`)
+- `tests_stdin2`: the same stdin test compiled without passing
+  `-D BUFFER_SIZE`, using the default value provided by the implementation
 - `tests_buffer0`: a file containing only a newline and subsequent EOF calls,
   with `BUFFER_SIZE=0`
 
