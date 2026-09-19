@@ -45,11 +45,12 @@ temporary `tests.out` executable.
   newline, and `NULL` after EOF
 - `tests_empty_file`: reading an empty file with `BUFFER_SIZE=1`
 - `tests_stdin1`: a 2100-character line followed by an empty line and EOF,
-  with `BUFFER_SIZE=1025` (the test reads `text_files/stdin_long.txt`)
+  with `BUFFER_SIZE=1025` (the test reads standard input redirected from
+  `text_files/stdin_long.txt`, containing 2100 `A` characters and two newlines)
 - `tests_stdin2`: the same stdin test compiled without passing
   `-D BUFFER_SIZE`, using the default value provided by the implementation
-- `tests_buffer0`: a file containing only a newline and subsequent EOF calls,
-  with `BUFFER_SIZE=0`
+- `tests_buffer0`: three calls with `BUFFER_SIZE=0`, each expected to return
+  `NULL` immediately, even though the file contains a newline
 
 ## Directory structure
 
@@ -68,4 +69,3 @@ temporary `tests.out` executable.
     ├── endlonly.txt
     └── stdin_long.txt
 ```
-

@@ -16,27 +16,33 @@ char *result(int pass)
   return (RED "FAIL" RESET);
 }
 
-void run_tests() {
+int run_tests(void) {
     int fd = open("text_files/endlonly.txt", O_RDONLY);
+    if (fd < 0) {
+        perror("text_files/endlonly.txt");
+        return 1;
+    }
     printf(MAGENTA "Test: get_next_line(\"text_files/endlonly.txt\") BUFFER_SIZE=%d\n\n" RESET, BUFFER_SIZE);
-    // Tests: Reading beyond the end of the file should return NULL
+    // A nonpositive buffer returns NULL immediately; otherwise read the newline.
     char *line1 = get_next_line(fd);
-    char *expected1 = "\n";
-    int result1 = strcmp(line1, expected1) == 0;
-    printf("Reading \\n char only, expected: %sresult: %s1st line - %s\n", expected1, line1, result(result1));
+    char *expected1 = BUFFER_SIZE <= 0 ? NULL : "\n";
+    int result1 = expected1 ? (line1 && strcmp(line1, expected1) == 0) : line1 == NULL;
+    printf("First call, expected: [%s], result: [%s] - %s\n", expected1 ? expected1 : "NULL", line1 ? line1 : "NULL", result(result1));
     free(line1);
     
     char *line2 = get_next_line(fd);
     int result2 = line2 == NULL;
-    printf("Reading beyond EOF: NULL, result: %s - %s\n", line2, result(result2));
+    printf("Second call, expected: NULL, result: %s - %s\n", line2 ? line2 : "NULL", result(result2));
+    free(line2);
     
     char *line3 = get_next_line(fd);
     int result3 = line3 == NULL;
-    printf("Reading beyond EOF: NULL, result: %s - %s\n", line3, result(result3));
+    printf("Third call, expected: NULL, result: %s - %s\n", line3 ? line3 : "NULL", result(result3));
+    free(line3);
     close(fd);
+    return !(result1 && result2 && result3);
 }
 
-int main() {
-    run_tests();
-    return 0;
+int main(void) {
+    return run_tests();
 }
